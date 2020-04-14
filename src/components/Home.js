@@ -72,15 +72,15 @@ class App extends React.Component{
   }
   handleSubmit(event){
     const data = new FormData();
-    data.append('FirstName',this.state.first)
-    data.append('LastName',this.state.last)
-    data.append('Email',this.state.email)
-    data.append('Number',this.state.number)
-    data.append('Building',this.state.building)
-    data.append('Date',this.state.date)
-    data.append('Rating',this.state.starSelected)
+    data.append('first_name',this.state.first)
+    data.append('last_name',this.state.last)
+    data.append('email',this.state.email)
+    data.append('number',this.state.number)
+    data.append('building',this.state.building)
+    data.append('Date_of_Visit',this.state.date)
+    data.append('rating',this.state.starSelected)
     data.append('Comments',this.state.comment)
-    fetch('https://cs.gmu.edu:8443/offutt/servlet/formHandler', {
+    fetch('https://swe471-proj1.herokuapp.com/server', {
       method: 'POST',
       body: data
     })
@@ -153,7 +153,7 @@ class App extends React.Component{
     const starsSelected = this.state.starSelected;
     return(
       <div>
-        <form method="POST" action="https://swe471-proj1.herokuapp.com/server">
+        <form /*method="POST" action="https://swe471-proj1.herokuapp.com/server"*/>
         <TextField
           required
           name='first_name'
@@ -229,17 +229,21 @@ class App extends React.Component{
                     }}
                 />
         </MuiPickersUtilsProvider>
-        <div className="star-rating">
+
+        <div className="star-rating" name='rating' value={this.state.starsSelected}>
+          
           {[1,2,3,4,5].map((n, i) =>
                <Star key={i}
                name='rating'
+               id='rating'
                value={this.state.starsSelected}
                      selected={i < starsSelected}
                      onClick={() => this.starChange(i+1)}
               />)}
-              <p>{starsSelected} of {totalStars} stars</p>
-              </div>
 
+            <p>{starsSelected} of {totalStars} stars</p>
+        </div>
+        
         <TextField
                name='Comments'
                value={this.state.comment}
@@ -249,8 +253,8 @@ class App extends React.Component{
           style={{width: '98%'}} 
           onChange={this.changeComment}
         />
-        <button type="submit">Take the shot!</button>
-        {/* onClick={this.handleSubmit} */}
+        <button onClick={this.handleSubmit}>Take the shot!</button>
+        
         </form>
       </div>
     );
