@@ -1,52 +1,24 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-
+import Main from "./components/Main";
+import Header from "./components/Header";
 import './App.css';
-import Fetcher from './components/Fetcher';
-import Hooks, {aFunc} from './components/Hooks';
-import ToggleButtons from './components/ToggleButtons';
+import Dashboard from './components/Dashboard';
+import Results from './Results';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-export const getLocationUrlData = () => {
-  return {
-      url:
-          process.env.NODE_ENV === 'production'?
-          'https://swe432tomcat.herokuapp.com'
-          :`${window.location.origin}`,
-      hash: `${window.location.hash}`
-  };
-};
-export const servicePath ='/echo';
-
-function App(props) {
-  const [weekDay, setWeekDay] = React.useState("Monday");
+function Home() {
   return (
-    <div style={{flexGrow: 1}}>
-      <Grid 
-      container
-      direction="column"
-      justify="center"
-      alignItems="stretch"
-      spacing={2}
-      >
-        <Grid item xs>
-          <Paper elevation={1}>
-            <Hooks name={aFunc().name}/>
-            </Paper>
-        </Grid>
-        <Grid item xs>
-          <Paper elevation={1}>
-            <Fetcher  value={weekDay} url={`${getLocationUrlData().url}${servicePath}`}/>
-            </Paper>
-          </Grid>
-        <Grid item xs>
-          <Paper elevation={1}>
-            <ToggleButtons value={weekDay} onChange ={setWeekDay}/>
-          </Paper>
-          </Grid>
-      </Grid>
+    <div>
+      <Header/>
+      <BrowserRouter>
+        <Switch>
+          <Route path = '/' component={Main} exact/>
+          <Route path='/results/' component={Results}/>
+          <Route component={Error} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
 
-export default App;
+export default Home;
