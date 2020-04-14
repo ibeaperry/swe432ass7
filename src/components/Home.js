@@ -153,7 +153,7 @@ class App extends React.Component{
     const starsSelected = this.state.starSelected;
     return(
       <div>
-        <form method="POST" action="https://cs.gmu.edu:8443/offutt/servlet/formHandler">
+        <form method="POST" action="https://swe471-proj1.herokuapp.com/server">
         <TextField
           required
           name='first_name'
@@ -216,7 +216,7 @@ class App extends React.Component{
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                     margin="normal"
-                    name='Date of Visit'
+                    name='Date_of_Visit'
                     value={this.state.visit}
                     id="date-picker-dialog"
                     label="Date picker dialog"
